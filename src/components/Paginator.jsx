@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
-function Paginator({ maxPageNumber }) {
-  const [pageNumber, setPageNumber] = useState(0);
+function Paginator({ maxPageNumber, onPageChange }) {
+  const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => {
+    onPageChange(pageNumber);
+  }, [pageNumber]);
 
   function nextPage() {
     if (pageNumber == maxPageNumber) return;
@@ -9,7 +14,7 @@ function Paginator({ maxPageNumber }) {
   }
 
   function previousPage() {
-    if (pageNumber === 0) return;
+    if (pageNumber === 1) return;
     setPageNumber((pageNumber) => pageNumber - 1);
   }
 

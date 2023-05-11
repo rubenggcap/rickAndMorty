@@ -1,25 +1,41 @@
 import { useEffect, useState } from "react";
 import Paginator from "../../components/Paginator";
+import useFetch from "../../hooks/useFetch";
 
 function CharacterList() {
+  const baseUrl = "https://rickandmortyapi.com/api/character";
+  const [url, setUrl] = useState(baseUrl);
   const [characters, setCharacters] = useState([]);
+  const [maxPageNumber, setMaxPageNumber] = useState();
+  const { data, error, loading, refetch } = useFetch(url);
 
   useEffect(() => {
-    retrieveCharacters();
-  }, []);
+    if (!data) return;
+    setMaxPageNumber(data.pages);
+    setCharacters(data.results);
+  }, [data]);
 
-  async function retrieveCharacters() {
-    const response = await fetch("https://rickandmortyapi.com/api/character");
-    const jsonResponse = await response.json();
-    setCharacters(jsonResponse.results);
+  function handlePageChange(newPage) {
+    refetch(`${baseUrl}?page=${newPage}`);
+  }
+
+  if (error) {
+    return <>Something went wrong {err}</>;
+  }
+
+  if (loading) {
+    return <>Loading...</>;
   }
 
   return (
     <>
       {characters.map((character) => (
-        <div>{character.name}</div>
+        <div key={character.id}>{character.name}</div>
       ))}
-      <Paginator maxPageNumber="5" />
+      <Paginator
+        maxPageNumber={maxPageNumber}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }

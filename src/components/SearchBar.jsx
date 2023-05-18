@@ -1,17 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-function SearchBar() {
+function SearchBar({ placeholder, onSearch }) {
   const inputRef = useRef(null);
 
-  function search() {
-    console.log(inputRef.current.value);
+  function handleSearch() {
+    onSearch(inputRef.current.value);
   }
 
   return (
-    <>
-      <input ref={inputRef} />
-      <button onClick={search}>search</button>
-    </>
+    <div className="flex h-12 justify-center">
+      <input className="border px-2" ref={inputRef} placeholder={placeholder} />
+      <button className="border px-2 bg-slate-200" onClick={handleSearch}>
+        search
+      </button>
+    </div>
   );
 }
 

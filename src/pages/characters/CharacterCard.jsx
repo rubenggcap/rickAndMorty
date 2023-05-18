@@ -1,7 +1,7 @@
 function CharacterCard({ character }) {
   return (
     <div className="my-4 flex bg-slate-200 rounded-md w-[600px] h-52">
-      <img src={character.image} className="h-full h-52 object-cover"></img>
+      <img src={character.image} className="h-full w-52 object-cover"></img>
       <div className="ml-4">
         <p>{character.name}</p>
         <p>{character.status}</p>

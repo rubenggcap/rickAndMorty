@@ -17,18 +17,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="characters" element={<Characters />}>
-            <Route path="list" element={<CharacterList />}></Route>
+            <Route index element={<CharacterList />}></Route>
             <Route path=":id" element={<CharacterDetail />}></Route>
           </Route>
           <Route path="episodes" element={<Episodes />}>
-            <Route path="list" element={<EpisodeList />}></Route>
+            <Route index element={<EpisodeList />}></Route>
             <Route path=":id" element={<EpisodeDetail />}></Route>
           </Route>
           <Route path="locations" element={<Locations />}>
-            <Route path="list" element={<LocationList />}></Route>
+            <Route index element={<LocationList />}></Route>
             <Route path=":id" element={<LocationDetail />}></Route>
           </Route>
         </Route>
+        <Route path="*" element={<h1>Page not found</h1>}></Route>
       </Routes>
     </BrowserRouter>
   );
